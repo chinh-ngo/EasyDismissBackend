@@ -21,10 +21,12 @@ namespace Backend.Services
         // Temporary
         private readonly List<User> users = FakeData.getAll();
         private readonly AppSettings _appSettings;
+        private EDDbContext _dbContext;
 
-		public AuthService(IOptions<AppSettings> appSettings)
+		public AuthService(IOptions<AppSettings> appSettings, EDDbContext dbContext)
 		{
             _appSettings = appSettings.Value;
+            _dbContext = dbContext;
 		}
 
         public AuthResponse? Authenticate(AuthRequest request)

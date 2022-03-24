@@ -8,19 +8,24 @@ namespace Backend.Services
     
     public class StudentsService
     {
-        private readonly AppSettings _appSettings;
+        private EDDbContext _dbContext;
+        List<Student> _students = FakeData.getAllStudents();
 
-        public StudentsService(IOptions<AppSettings> appsettings)
+        public StudentsService(EDDbContext dbContext)
         {
-            _appSettings = appsettings.Value;
+            _dbContext = dbContext;
         }
 
         public List<Student> Students()
         {
-            List<Student> students = FakeData.getAllStudents();
-
-            return students;
+            return _students;
         }
+
+        public Student GetStudentById(long id)
+        {
+            return _students.Single(u => u.Id == id);
+        }
+
 
     }
 }
